@@ -511,6 +511,316 @@ function LineChart({ data, width = 600, height = 400, marginTop = 20, marginRigh
     githubUrl: "https://github.com/username/data-visualization",
     imageUrl: "/placeholder.svg?height=400&width=600",
   },
+  // New Projects
+  {
+    id: "mobile-fitness-app",
+    name: "Fitness Tracker App",
+    description: "A React Native mobile app for tracking workouts and fitness goals",
+    longDescription:
+      "This fitness tracking application helps users monitor their workout routines, track progress, and achieve their fitness goals. Built with React Native, it provides a seamless experience across iOS and Android platforms. The app includes features like workout planning, progress tracking, nutrition logging, and social sharing capabilities.",
+    technologies: ["React Native", "TypeScript", "Redux", "Firebase", "Expo", "Native Base"],
+    features: [
+      "Cross-platform compatibility (iOS & Android)",
+      "Personalized workout plans",
+      "Progress tracking with charts and statistics",
+      "Nutrition and calorie tracking",
+      "Social sharing and community features",
+      "Offline support with local data storage",
+      "Push notifications for workout reminders"
+    ],
+    codeSnippets: [
+      {
+        title: "Workout Tracker Screen",
+        language: "tsx",
+        code: `import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Button, Card, ProgressBar } from 'native-base';
+import { useDispatch, useSelector } from 'react-redux';
+import { completeExercise, updateWorkout } from '../store/actions/workoutActions';
+import { ExerciseItem } from '../components/ExerciseItem';
+import { Timer } from '../components/Timer';
+import { RootState } from '../store/types';
+
+export const WorkoutTrackerScreen = ({ route, navigation }) => {
+  const { workoutId } = route.params;
+  const dispatch = useDispatch();
+  const workout = useSelector((state: RootState) => 
+    state.workouts.workouts.find(w => w.id === workoutId)
+  );
+  const [activeExercise, setActiveExercise] = useState(0);
+  const [isResting, setIsResting] = useState(false);
+  const [restTime, setRestTime] = useState(60); // 60 seconds rest
+
+  useEffect(() => {
+    if (!workout) {
+      navigation.goBack();
+    }
+  }, [workout, navigation]);
+
+  if (!workout) {
+    return null;
+  }
+
+  const handleExerciseComplete = (exerciseId: string) => {
+    dispatch(completeExercise(workoutId, exerciseId));
+    
+    if (activeExercise < workout.exercises.length - 1) {
+      setIsResting(true);
+      setTimeout(() => {
+        setIsResting(false);
+        setActiveExercise(activeExercise + 1);
+      }, restTime * 1000);
+    } else {
+      // Workout complete
+      dispatch(updateWorkout(workoutId, { completed: true, completedAt: new Date() }));
+      navigation.navigate('WorkoutComplete', { workoutId });
+    }
+  };
+
+  const progress = workout.exercises.filter(ex => ex.completed).length / workout.exercises.length;
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{workout.name}</Text>
+      
+      <ProgressBar value={progress * 100} colorScheme="blue" />
+      <Text style={styles.progressText}>
+        {Math.round(progress * 100)}% Complete
+      </Text>
+      
+      {isResting ? (
+        <Card style={styles.restCard}>
+          <Text style={styles.restTitle}>Rest Time</Text>
+          <Timer seconds={restTime} onComplete={() => setIsResting(false)} />
+          <Button onPress={() => setIsResting(false)}>Skip Rest</Button>
+        </Card>
+      ) : (
+        <ScrollView style={styles.exerciseList}>
+          {workout.exercises.map((exercise, index) => (
+            <ExerciseItem
+              key={exercise.id}
+              exercise={exercise}
+              isActive={index === activeExercise}
+              isCompleted={exercise.completed}
+              onComplete={() => handleExerciseComplete(exercise.id)}
+            />
+          ))}
+        </ScrollView>
+      )}
+      
+      <Button 
+        style={styles.endButton}
+        colorScheme="danger"
+        onPress={() => navigation.goBack()}
+      >
+        End Workout
+      </Button>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  progressText: {
+    textAlign: 'center',
+    marginVertical: 8,
+  },
+  exerciseList: {
+    flex: 1,
+    marginVertical: 16,
+  },
+  restCard: {
+    padding: 16,
+    alignItems: 'center',
+    marginVertical: 16,
+  },
+  restTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  endButton: {
+    marginTop: 16,
+  },
+});`,
+      },
+      {
+        title: "Firebase Authentication",
+        language: "typescript",
+        code: `import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { User, AuthError } from '../types/auth';
+
+// Initialize Google Sign In
+GoogleSignin.configure({
+  webClientId: 'YOUR_WEB_CLIENT_ID_HERE',
+});
+
+export const signInWithEmail = async (
+  email: string, 
+  password: string
+): Promise<User> => {
+  try {
+    const response = await auth().signInWithEmailAndPassword(email, password);
+    const userData = await getUserData(response.user.uid);
+    return {
+      uid: response.user.uid,
+      email: response.user.email || '',
+      ...userData
+    };
+  } catch (error) {
+    throw handleAuthError(error);
+  }
+};
+
+export const signUpWithEmail = async (
+  email: string, 
+  password: string, 
+  displayName: string
+): Promise<User> => {
+  try {
+    const response = await auth().createUserWithEmailAndPassword(email, password);
+    
+    // Update user profile
+    await response.user.updateProfile({
+      displayName,
+    });
+    
+    // Create user document in Firestore
+    const userData = {
+      displayName,
+      email,
+      createdAt: firestore.FieldValue.serverTimestamp(),
+      preferences: {
+        weightUnit: 'kg',
+        distanceUnit: 'km',
+        theme: 'light',
+      },
+    };
+    
+    await firestore()
+      .collection('users')
+      .doc(response.user.uid)
+      .set(userData);
+    
+    return {
+      uid: response.user.uid,
+      email,
+      displayName,
+      ...userData,
+    };
+  } catch (error) {
+    throw handleAuthError(error);
+  }
+};
+
+export const signInWithGoogle = async (): Promise<User> => {
+  try {
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
+    const response = await auth().signInWithCredential(googleCredential);
+    
+    // Check if this is a new user
+    const userDoc = await firestore()
+      .collection('users')
+      .doc(response.user.uid)
+      .get();
+    
+    if (!userDoc.exists) {
+      // Create user document for new Google sign-ins
+      const userData = {
+        displayName: response.user.displayName || '',
+        email: response.user.email || '',
+        photoURL: response.user.photoURL || '',
+        createdAt: firestore.FieldValue.serverTimestamp(),
+        preferences: {
+          weightUnit: 'kg',
+          distanceUnit: 'km',
+          theme: 'light',
+        },
+      };
+      
+      await firestore()
+        .collection('users')
+        .doc(response.user.uid)
+        .set(userData);
+    }
+    
+    const userData = await getUserData(response.user.uid);
+    
+    return {
+      uid: response.user.uid,
+      email: response.user.email || '',
+      displayName: response.user.displayName || '',
+      photoURL: response.user.photoURL || '',
+      ...userData,
+    };
+  } catch (error) {
+    throw handleAuthError(error);
+  }
+};
+
+const getUserData = async (uid: string) => {
+  const userDoc = await firestore()
+    .collection('users')
+    .doc(uid)
+    .get();
+  
+  return userDoc.data();
+};
+
+const handleAuthError = (error: any): AuthError => {
+  const errorCode = error.code || 'unknown';
+  let message = 'An unknown error occurred';
+  
+  switch (errorCode) {
+    case 'auth/invalid-email':
+      message = 'The email address is invalid';
+      break;
+    case 'auth/user-disabled':
+      message = 'This user account has been disabled';
+      break;
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+      message = 'Invalid email or password';
+      break;
+    case 'auth/email-already-in-use':
+      message = 'This email is already in use';
+      break;
+    case 'auth/weak-password':
+      message = 'The password is too weak';
+      break;
+    default:
+      message = error.message || message;
+  }
+  
+  return {
+    code: errorCode,
+    message,
+  };
+};`,
+      },
+    ],
+    demoUrl: "https://fitness-app-demo.example.com",
+    githubUrl: "https://github.com/username/fitness-tracker-app",
+    imageUrl: "/placeholder.svg?height=400&width=600",
+  },
+  
+  
 ]
 
 export function getProjectById(id: string): Project | undefined {

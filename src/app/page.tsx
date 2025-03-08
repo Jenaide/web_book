@@ -72,7 +72,7 @@ export default function Home() {
     <div className="min-h-screen">
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background -z-10" />
 

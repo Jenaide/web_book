@@ -44,6 +44,13 @@ const projects = [
       description: "Interactive data visualizations using D3.js",
       icon: Layers,
     },
+    {
+      id: "mobile-fitness-app",
+      name: "Fitness Tracker App",
+      description: "A React Native mobile app for tracking workouts and fitness goals",
+      icon: Layers,
+    },
+
   ]
   
 export function ProjectSidebar() {
