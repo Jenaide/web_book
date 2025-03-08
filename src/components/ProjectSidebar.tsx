@@ -54,7 +54,7 @@ export function ProjectSidebar() {
                 {/*<SidebarTrigger />*/}
                 <Link href={"/"} className="flex items-center gap-3">
                     <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarImage src="https://img.freepik.com/premium-photo/futuristic-female-character-hyperrealistic-3d-style-dressed-spaceinspired-fashion_549857-10880.jpg?w=740" />
                         <AvatarFallback>Jenaide Sibolie</AvatarFallback>
                     </Avatar>
                     <span className="font-semibold tracking-wider">Jenaide Sibolie</span>

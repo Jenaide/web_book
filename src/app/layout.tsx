@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ProjectSidebar } from "@/components/ProjectSidebar";
-import { BurgerMenu } from "@/components/burger-menu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,11 +32,8 @@ export default function RootLayout({
       >
         <ThemeProvider attribute={"class"} defaultTheme="system" enableSystem disableTransitionOnChange>
           <SidebarProvider>
-            <div className="flex min-h-screen">
+            <div className="flex max-w-screen">
               <ProjectSidebar />
-              <div className="md:hidden absolute top-4 right-4">
-                <BurgerMenu />
-              </div>
               <main className="flex-1">{children}</main>
             </div>
           </SidebarProvider>
