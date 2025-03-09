@@ -1,10 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import { BurgerMenu } from "@/components/burger-menu";
 import { Button } from "@/components/ui/button";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+{/*import { SidebarTrigger } from "@/components/ui/sidebar";*/}
 import { ArrowRight, ExternalLink, Github, Layers, Monitor, Package } from "lucide-react";
 import Link from "next/link";
+import { PageTransition } from "@/components/PageTransition";
 
 // Featured projects data
 const featuredProjects = [
@@ -69,7 +69,7 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen">
+    <PageTransition>
 
       {/* Hero Section */}
       <section className="relative">
@@ -82,12 +82,10 @@ export default function Home() {
 
         {/* Navigation controls */}
         <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
-          <div className="hidden md:block">
+          {/*<div className="hidden md:block">
             <SidebarTrigger />
-          </div>
-          <div className="md:hidden">
-            <BurgerMenu />
-          </div>
+          </div>*/}
+          
         </div>
 
         <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32">
@@ -246,6 +244,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-    </div>
+    </PageTransition>
   );
 }

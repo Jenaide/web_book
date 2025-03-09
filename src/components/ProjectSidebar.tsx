@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./ThemeToggle";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
 
 // Project data
@@ -59,13 +60,18 @@ export function ProjectSidebar() {
         <Sidebar>
             <SidebarHeader className="flex items-center justify-between p-4">
                 {/*<SidebarTrigger />*/}
-                <Link href={"/"} className="flex items-center gap-3">
+                <HoverCard>
                     <Avatar>
                         <AvatarImage src="https://img.freepik.com/premium-photo/futuristic-female-character-hyperrealistic-3d-style-dressed-spaceinspired-fashion_549857-10880.jpg?w=740" />
                         <AvatarFallback>Jenaide Sibolie</AvatarFallback>
                     </Avatar>
-                    <span className="font-semibold tracking-wider">Jenaide Sibolie</span>
-                </Link>
+                    <HoverCardTrigger href="/"  className="font-semibold tracking-wider">
+                        Jenaide Sibolie
+                    </HoverCardTrigger>
+                    <HoverCardContent>
+                        <span>Software Engineer | Designer | Finance | Business Analysis</span>
+                    </HoverCardContent>
+                </HoverCard>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
