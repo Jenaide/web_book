@@ -2,17 +2,17 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 {/*import { SidebarTrigger } from "@/components/ui/sidebar";*/}
-import { ArrowRight, ExternalLink, Github, Layers, Monitor, Package } from "lucide-react";
+import { ArrowRight, ExternalLink, Github, Layers, LogIn, Package } from "lucide-react";
 import Link from "next/link";
 import { PageTransition } from "@/components/PageTransition";
 
 // Featured projects data
 const featuredProjects = [
   {
-    id: "web-dashboard",
-    name: "Web Dashboard",
-    description: "A responsive dashboard built with React and Next.js",
-    icon: Monitor,
+    id: "Role-based-authentication",
+    name: "Role-based Authentication",
+    description: "A web application with role-based authentication system using Next.js and Prisma",
+    icon: LogIn,
     color: "bg-blue-500/10 text-blue-500",
   },
   {
@@ -33,15 +33,20 @@ const featuredProjects = [
 
 // Skills data
 const skills = [
-  "React",
-  "Next.js",
-  "TypeScript",
+  "Python",
+  "Java",
+  "C#",
+  "JavaScript",
+  "HTML",
+  "CSS",
   "Node.js",
   "Tailwind CSS",
   "UI/UX Design",
   "RESTful APIs",
-  "GraphQL",
-  "D3.js",
+  "Next.js",
+  "React",
+  "TypeScript",
+  "Prisma",
 ]
 
 
@@ -121,13 +126,13 @@ export default function Home() {
 
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button asChild size="lg" className="rounded-full px-8">
-                <Link href="/projects/web-dashboard" className="flex items-center gap-2">
+                <Link href="/projects/Role-based-authentication" className="flex items-center gap-2">
                   Explore Projects <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="rounded-full px-8">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Jenaide"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
@@ -237,7 +242,7 @@ export default function Home() {
               Interested in collaborating or have a project in mind? Let&apos;s connect and discuss how we can work together.
             </p>
             <Button asChild size="lg" className="rounded-full px-8">
-              <a href="mailto:contact@example.com" className="flex items-center gap-2">
+              <a href="mailto:jenaidesibolie@gmail.com" className="flex items-center gap-2">
                 Get in Touch <ExternalLink className="h-4 w-4" />
               </a>
             </Button>
