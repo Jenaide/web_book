@@ -11,7 +11,7 @@ import { Sidebar,
     SidebarMenu, 
     SidebarMenuButton, 
     SidebarMenuItem } from "./ui/sidebar";
-import { Code, Github, Home, Layers, Mail, Monitor, Package } from "lucide-react";
+import { Code, Github, Home, Layers, LogIn, Mail, Package } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./ThemeToggle";
 import { Avatar, AvatarFallback } from "./ui/avatar";
@@ -22,10 +22,10 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 // Project data
 const projects = [
     {
-      id: "web-dashboard",
-      name: "Web Dashboard",
-      description: "A responsive dashboard built with React and Next.js",
-      icon: Monitor,
+      id: "Role-based-authentication",
+      name: "Role-based Authentication",
+      description: "A web application with role-based authentication using Next.js and Prisma",
+      icon: LogIn,
     },
     {
       id: "api-service",
