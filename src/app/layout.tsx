@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Web Book - Jenaide Sibolie",
+  title: "Jenaide Sibolie",
   description: "A web book to showcase my work with documentation.",
 };
 
