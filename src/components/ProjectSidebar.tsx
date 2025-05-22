@@ -34,9 +34,9 @@ const projects = [
       icon: Code,
     },
     {
-      id: "component-library",
-      name: "Component Library",
-      description: "Reusable UI components built with React and Tailwind CSS",
+      id: "ticketing_system",
+      name: "IT Ticketing System",
+      description: "A web-based ticketing system designed to streamline issue tracking and support management.",
       icon: Package,
     },
     {

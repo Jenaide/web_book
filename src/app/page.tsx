@@ -16,9 +16,9 @@ const featuredProjects = [
     color: "bg-blue-500/10 text-blue-500",
   },
   {
-    id: "component-library",
-    name: "Component Library",
-    description: "Reusable UI components built with React and Tailwind CSS",
+    id: "ticketing_system",
+    name: "IT Ticketing System",
+    description: "A web-based ticketing system designed to streamline issue tracking and support management.",
     icon: Package,
     color: "bg-purple-500/10 text-purple-500",
   },
@@ -104,7 +104,7 @@ export default function Home() {
               variants={itemVariants} 
               className="flex items-center justify-center mb-6"
             >
-                <span className="px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                <span className="px-6 py-3 bg-primary/10 text-primary rounded-full text-sm font-medium">
                 Portfolio & Project Showcase
               </span>
             </motion.div>
@@ -113,7 +113,8 @@ export default function Home() {
               variants={itemVariants}
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600 mb-6"
             >
-              Creative Developer Solutions
+              Jenaide Sibolie
+              <span className="flex flex-col lg:text-4xl text-3xl">Tech | Data | Freelance</span>
             </motion.h1>
 
             <motion.p
